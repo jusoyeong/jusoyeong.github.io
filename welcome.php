@@ -34,6 +34,6 @@
 </body></html>
 <html><body>
 구 : 반지름을 입력으로 받아서 체적을 출력한다.<br>
-반지름: <?php echo $_GETT["radius"]; ?><br>
+반지름: <?php echo $_GET["radius"]; ?><br>
 체적: <?php echo (4/3) * 3.14 * $_GET["radius"] * $_GET["radius"] * $_GET["radius"]; ?>
 </body></html>
