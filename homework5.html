@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas Homework 5</title>
+    <script type="text/javascript">
+        
+        var canvas, context, canX, canY, isMouseDown = 0;
+        var startX, startY = 0;
+
+        function init() {
+            canvas = document.getElementById("myCanvas");
+            context = canvas.getContext("2d");
+
+            
+            canvas.addEventListener("mousedown", mouseDownHandler, false);
+            canvas.addEventListener("mousemove", mouseXY, false);
+            canvas.addEventListener("mouseup", mouseUpHandler, false);
+        }
+
+        function mouseUpHandler() {
+            isMouseDown = 0;
+            showPos(); 
+        }
+
+        function mouseDownHandler(e) {
+            if (isMouseDown == 0) {
+                
+                startX = e.pageX - canvas.offsetLeft;
+                startY = e.pageY - canvas.offsetTop;
+            }
+            isMouseDown = 1;
+            mouseXY(e);
+        }
+
+        function mouseXY(e) {
+            
+            canX = e.pageX - canvas.offsetLeft;
+            canY = e.pageY - canvas.offsetTop;
+            showPos();
+        }
+
+        function showPos() {
+            
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+           
+            context.font = "24pt Helvetica";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillStyle = "black";
+            
+            var str = canX + ", " + canY;
+            str += isMouseDown ? " down" : " up";
+            
+            
+            context.fillText(str, canvas.width / 2, canvas.height / 2);
+            
+            
+            context.fillStyle = isMouseDown ? "red" : "green";
+            context.fillRect(canX - 5, canY - 5, 10, 10);
+
+            
+            if (isMouseDown) {
+                context.beginPath();
+                
+                context.rect(startX, startY, canX - startX, canY - startY);
+                context.lineWidth = 4;
+                context.strokeStyle = '#0000ff';
+                context.stroke();
+            }
+        }
+    </script>
+</head>
+
+<body onload="init()">
+    <canvas id="myCanvas" height="500" width="500" style="border:1px solid #000000;">
+        
+    </canvas>
+</body>
+</html>
